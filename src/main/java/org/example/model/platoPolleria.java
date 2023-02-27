@@ -1,7 +1,5 @@
 package org.example.model;
 
-import java.util.List;
-
 public class platoPolleria {
     private String plato;
     private double precio;
