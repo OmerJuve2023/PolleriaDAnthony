@@ -10,7 +10,6 @@ public class precioMezaPolleria {
         this.plato = plato;
     }
 
-    @Override
     public String toString() {
         String txt = "";
         for (platoPolleria plato : plato) {

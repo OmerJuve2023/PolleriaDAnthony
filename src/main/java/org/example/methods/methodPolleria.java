@@ -94,11 +94,7 @@ public class methodPolleria {
             String rpta = JOptionPane.showInputDialog("Ingrese id a buscar:");
             for (int i = 0; i < cont; i++) {
                 if (Long.parseLong(rpta) == matriz[i].getId()) {
-                    JOptionPane.showMessageDialog(null, "" +
-                            "NOMBRE DEL CLIENTE:\n" + matriz[i].getNombreCliente().toUpperCase() + "\n" +
-                            "MONTO DE LA MEZA\n:" + matriz[i].getPrecio() + "\n" +
-                            "PLATOS:\n" +
-                            matriz[i].toString());
+                    JOptionPane.showMessageDialog(null, matriz[i].toString());
                 }
             }
         } catch (Exception e) {
