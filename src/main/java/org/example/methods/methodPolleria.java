@@ -7,11 +7,11 @@ import javax.swing.*;
 import java.util.ArrayList;
 
 public class methodPolleria {
-    private final precioMezaPolleria[] matriz = new precioMezaPolleria[10];
+    private final precioMezaPolleria[] matriz = new precioMezaPolleria[10000];
     private double price = 0;
     private int cont = 1;
-    static String nameCLient = "";
-    ArrayList<platoPolleria> platos = new ArrayList<>();
+    private String nameCLient = "";
+    private ArrayList<platoPolleria> platos = new ArrayList<>();
     public final String[] menu = new String[]{
             "INGRESAR",
             "MOSTRAR",
@@ -55,43 +55,31 @@ public class methodPolleria {
             nameCLient = JOptionPane.showInputDialog(null, "Ingrese Nombre del Cliente");
             menu2();
         }
-        if (rpta.equals(menu[1])) {
-            view();
-        }
-        if (rpta.equals(menu[2])) {
-            search();
-        }
-        if (rpta.equals(menu[3])) {
-            exit();
-        }
+        if (rpta.equals(menu[1])) view();
+
+        if (rpta.equals(menu[2])) search();
+
+        if (rpta.equals(menu[3])) exit();
+
     }
 
     private void options2(String rpta) {
-        platoPolleria polleria = new platoPolleria();
+        platoPolleria polleria;
         if (rpta.equals(menu2[0])) {
             price += 15;
-            polleria.setCantidad(1);
-            polleria.setPrecio(price);
-            polleria.setPlato(menu2[0]);
+            polleria = new platoPolleria(menu2[0], price, 1);
             platos.add(polleria);
-
         } else if (rpta.equals(menu2[1])) {
             price += 30;
-            polleria.setCantidad(1);
-            polleria.setPrecio(price);
-            polleria.setPlato(menu2[0]);
+            polleria = new platoPolleria(menu2[1], price, 1);
             platos.add(polleria);
         } else if (rpta.equals(menu2[2])) {
             price += 60;
-            polleria.setCantidad(1);
-            polleria.setPrecio(price);
-            polleria.setPlato(menu2[2]);
+            polleria = new platoPolleria(menu2[2], price, 1);
             platos.add(polleria);
         } else if (rpta.equals(menu2[3])) {
             price += 10;
-            polleria.setCantidad(1);
-            polleria.setPrecio(price);
-            polleria.setPlato(menu2[3]);
+            polleria = new platoPolleria(menu2[3], price, 1);
             platos.add(polleria);
         } else if (rpta.equals(menu2[4])) {
             enteData();
@@ -103,12 +91,11 @@ public class methodPolleria {
 
     private void search() {
         try {
-
             String rpta = JOptionPane.showInputDialog("Ingrese id a buscar:");
             for (int i = 0; i < cont; i++) {
-                if (Integer.parseInt(rpta) == matriz[i].getId()) {
+                if (Long.parseLong(rpta) == matriz[i].getId()) {
                     JOptionPane.showMessageDialog(null, "" +
-                            "NOMBRE DEL CLEINTE:\n" + matriz[i].getNombreCliente().toUpperCase() + "\n" +
+                            "NOMBRE DEL CLIENTE:\n" + matriz[i].getNombreCliente().toUpperCase() + "\n" +
                             "MONTO DE LA MEZA\n:" + matriz[i].getPrecio() + "\n" +
                             "PLATOS:\n" +
                             matriz[i].toString());
@@ -121,25 +108,21 @@ public class methodPolleria {
 
     private void view() {
         String texto = "ID" + "\t" + "NOMBRE CLIENTE" + "\t" + "MONTO" + "\n";
-        texto += "-----------------------------------------------------------------------------------------------------------------------------------\n";
+        texto += "-------------------------------------------------------------------------------------------------\n";
         JTextArea m1 = new JTextArea(20, 50);
         JScrollPane m2 = new JScrollPane(m1);
         for (int i = 0; i < cont - 1; i++) {
             texto += matriz[i].getId() + "\t" + matriz[i].getNombreCliente() + "\t\t" + matriz[i].getPrecio() + "\n";
         }
         m1.append(texto);
-        JOptionPane.showMessageDialog(null, m2, "LISTA DE VENDEDORES", JOptionPane.INFORMATION_MESSAGE)
-        ;
+        JOptionPane.showMessageDialog(null, m2, "LISTA DE VENDEDORES", JOptionPane.INFORMATION_MESSAGE);
         menu();
     }
 
     private void enteData() {
         int contm = cont - 1;
-        matriz[contm] = new precioMezaPolleria();
-        matriz[contm].setId(cont);
-        matriz[contm].setPrecio(price);
-        matriz[contm].setNombreCliente(nameCLient);
-        matriz[contm].setPlato(platos);
+        precioMezaPolleria precioMeza = new precioMezaPolleria(cont, price, nameCLient, platos);
+        matriz[contm] = precioMeza;
         platos = new ArrayList<>();
         price = 0;
         nameCLient = "";
@@ -158,4 +141,5 @@ public class methodPolleria {
             menu();
         }
     }
+
 }

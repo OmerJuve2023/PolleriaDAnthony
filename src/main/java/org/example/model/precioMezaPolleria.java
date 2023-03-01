@@ -1,9 +1,15 @@
 package org.example.model;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class precioMezaPolleria {
+    public precioMezaPolleria(long id, double precio, String nombreCliente, List<platoPolleria> plato) {
+        this.id = id;
+        this.precio = precio;
+        this.nombreCliente = nombreCliente;
+        this.plato = plato;
+    }
+
     @Override
     public String toString() {
         String txt = "";
@@ -12,51 +18,33 @@ public class precioMezaPolleria {
                     "Cantidad de Platos:\t" + plato.getCantidad() + "\n" +
                     "Precio del Plato:\t" + plato.getPrecio();
         }
-        return "precioMezaPolleria{" +
+        return "Precio Meza Polleria" +
                 "id:\t" + id + "\n" +
                 "precio:\t" + precio + "\n" +
                 "nombreCliente:\t" + nombreCliente + "\n" +
-                ", platos:\n" + txt;
+                "platos:\n" + txt;
     }
 
     private long id;
     private double precio;
     private String nombreCliente;
-    private List<platoPolleria> plato = new ArrayList<>();
+    private List<platoPolleria> plato;
 
-    public precioMezaPolleria() {
-    }
 
     public long getId() {
         return id;
     }
 
-    public void setId(long id) {
-        this.id = id;
-    }
 
     public double getPrecio() {
         return precio;
     }
 
-    public void setPrecio(double precio) {
-        this.precio = precio;
-    }
 
     public String getNombreCliente() {
         return nombreCliente;
     }
 
-    public void setNombreCliente(String nombreCliente) {
-        this.nombreCliente = nombreCliente;
-    }
 
-    public List<platoPolleria> getPlato() {
-        return plato;
-    }
-
-    public void setPlato(ArrayList<platoPolleria> plato) {
-        this.plato = plato;
-    }
 
 }

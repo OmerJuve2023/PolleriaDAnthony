@@ -5,34 +5,27 @@ public class platoPolleria {
     private double precio;
     private int cantidad;
 
-    public platoPolleria() {
+
+    public platoPolleria(String plato, double precio, int cantidad) {
+        this.plato = plato;
+        this.precio = precio;
+        this.cantidad = cantidad;
     }
 
     public String getPlato() {
         return plato;
     }
 
-    public void setPlato(String plato) {
-        this.plato = plato;
-    }
-
     public double getPrecio() {
         return precio;
     }
 
-    public void setPrecio(double precio) {
-        this.precio = precio;
-    }
 
     public int getCantidad() {
         return cantidad;
     }
 
-    public void setCantidad(int cantidad) {
-        this.cantidad = cantidad;
-    }
 
-    @Override
     public String toString() {
         return "platoPolleria{" +
                 "plato='" + plato + '\'' +
