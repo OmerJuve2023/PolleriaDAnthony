@@ -27,7 +27,7 @@ public class methodPolleria {
             "SALIR"
     };
 
-    void menu() {
+    public void menu() {
         String rpta = (String) JOptionPane.showInputDialog(null,
                 "ingrese una de las opciones:",
                 "POLLERIA D' ANTHONY",
