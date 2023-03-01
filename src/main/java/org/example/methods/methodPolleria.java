@@ -7,18 +7,18 @@ import javax.swing.*;
 import java.util.ArrayList;
 
 public class methodPolleria {
-    private final precioMezaPolleria[] matriz = new precioMezaPolleria[10000];
+    private precioMezaPolleria[] matriz = new precioMezaPolleria[10000];
     private double price = 0;
     private int cont = 1;
-    private String nameCLient = "";
-    private ArrayList<platoPolleria> platos = new ArrayList<>();
-    public final String[] menu = new String[]{
+    String nameCLient = "";
+    ArrayList<platoPolleria> platos = new ArrayList<>();
+    String[] menu = new String[]{
             "INGRESAR",
             "MOSTRAR",
             "BUSCAR",
             "SALIR"
     };
-    public final String[] menu2 = new String[]{
+    String[] menu2 = new String[]{
             "1/4 Pollo, porcion de papas y ensalada --- S/.15.00",
             "1/2 Pollo, porcion de papas y ensalada --- S/.30.00",
             "1 Pollo, porcion de papas y ensalada --- S/.60.00",
@@ -27,7 +27,7 @@ public class methodPolleria {
             "SALIR"
     };
 
-    public void menu() {
+    void menu() {
         String rpta = (String) JOptionPane.showInputDialog(null,
                 "ingrese una de las opciones:",
                 "POLLERIA D' ANTHONY",
@@ -38,7 +38,7 @@ public class methodPolleria {
         options(rpta);
     }
 
-    private void menu2() {
+    void menu2() {
         String rpta = (String) JOptionPane.showInputDialog(null,
                 "ingrese platos:",
                 "POLLERIA D' ANTHONY",
@@ -50,7 +50,7 @@ public class methodPolleria {
 
     }
 
-    private void options(String rpta) {
+    void options(String rpta) {
         if (rpta.equals(menu[0])) {
             nameCLient = JOptionPane.showInputDialog(null, "Ingrese Nombre del Cliente");
             menu2();
@@ -63,7 +63,7 @@ public class methodPolleria {
 
     }
 
-    private void options2(String rpta) {
+    void options2(String rpta) {
         platoPolleria polleria;
         if (rpta.equals(menu2[0])) {
             price += 15;
@@ -89,7 +89,7 @@ public class methodPolleria {
         menu2();
     }
 
-    private void search() {
+    void search() {
         try {
             String rpta = JOptionPane.showInputDialog("Ingrese id a buscar:");
             for (int i = 0; i < cont; i++) {
@@ -102,7 +102,7 @@ public class methodPolleria {
         }
     }
 
-    private void view() {
+    void view() {
         String texto = "ID" + "\t" + "NOMBRE CLIENTE" + "\t" + "MONTO" + "\n";
         texto += "-------------------------------------------------------------------------------------------------\n";
         JTextArea m1 = new JTextArea(20, 50);
@@ -115,7 +115,7 @@ public class methodPolleria {
         menu();
     }
 
-    private void enteData() {
+    void enteData() {
         int contm = cont - 1;
         precioMezaPolleria precioMeza = new precioMezaPolleria(cont, price, nameCLient, platos);
         matriz[contm] = precioMeza;
@@ -126,7 +126,7 @@ public class methodPolleria {
         menu();
     }
 
-    private void exit() {
+    void exit() {
         int aux = JOptionPane.showConfirmDialog(null,
                 "ESTA SEGURO QUE DESEA SALIR",
                 "",
@@ -138,4 +138,7 @@ public class methodPolleria {
         }
     }
 
+    void ordernar(int id) {
+
+    }
 }
