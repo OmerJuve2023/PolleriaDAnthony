@@ -30,21 +30,17 @@ public class precioMezaPolleria {
     private String nombreCliente;
     private List<platoPolleria> plato;
 
-
     public long getId() {
         return id;
     }
-
 
     public double getPrecio() {
         return precio;
     }
 
-
     public String getNombreCliente() {
         return nombreCliente;
     }
-
 
 
 }
