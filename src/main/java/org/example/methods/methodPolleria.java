@@ -103,6 +103,7 @@ public class methodPolleria {
     }
 
     void view() {
+        if (cont > 2) ordenar();
         String texto = "ID" + "\t" + "NOMBRE CLIENTE" + "\t" + "MONTO" + "\n";
         texto += "-------------------------------------------------------------------------------------------------\n";
         JTextArea m1 = new JTextArea(20, 50);
@@ -138,7 +139,34 @@ public class methodPolleria {
         }
     }
 
-    void ordernar(int id) {
+    private void ordenar() {
+        long id;
+        String name;
+        double precio;
+        ArrayList<platoPolleria> platoPollo;
+        for (int i = 0; i < cont - 2; i++) {
+            for (int j = i + 1; j < cont - 1; j++) {
+                if (matriz[j].getPrecio() > matriz[i].getPrecio()) {
 
+                    id = matriz[i].getId();
+                    matriz[i].setId(matriz[j].getId());
+                    matriz[j].setId(id);
+
+                    name = matriz[i].getNombreCliente();
+                    matriz[i].setNombreCliente(matriz[j].getNombreCliente());
+                    matriz[j].setNombreCliente(name);
+
+                    precio = matriz[i].getPrecio();
+                    matriz[i].setPrecio(matriz[j].getPrecio());
+                    matriz[j].setPrecio(precio);
+
+                    platoPollo = (ArrayList<platoPolleria>) matriz[i].getPlato();
+                    matriz[i].setPlato(matriz[j].getPlato());
+                    matriz[j].setPlato(platoPollo);
+                }
+            }
+        }
     }
+
+
 }

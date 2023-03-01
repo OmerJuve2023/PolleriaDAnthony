@@ -10,6 +10,22 @@ public class precioMezaPolleria {
         this.plato = plato;
     }
 
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public void setPrecio(double precio) {
+        this.precio = precio;
+    }
+
+    public void setNombreCliente(String nombreCliente) {
+        this.nombreCliente = nombreCliente;
+    }
+
+    public void setPlato(List<platoPolleria> plato) {
+        this.plato = plato;
+    }
+
     public String toString() {
         String txt = "";
         for (platoPolleria plato : plato) {
@@ -41,5 +57,7 @@ public class precioMezaPolleria {
         return nombreCliente;
     }
 
-
+    public List<platoPolleria> getPlato() {
+        return plato;
+    }
 }
