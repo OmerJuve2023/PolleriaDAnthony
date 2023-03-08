@@ -185,9 +185,10 @@ public class methodPolleria {
                     menu();
                 }
             }
-            for (int i = b; i < cont--; i++) {
+
+           /* for (int i = b; i < cont--; i++) {
                 matriz[i] = matriz[i + 1];
-            }
+            }*/
             cont--;
         } catch (Exception e) {
             menu();
