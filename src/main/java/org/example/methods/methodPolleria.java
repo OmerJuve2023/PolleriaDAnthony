@@ -4,13 +4,16 @@ import org.example.model.platoPolleria;
 import org.example.model.precioMezaPolleria;
 
 import javax.swing.*;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class methodPolleria {
     private precioMezaPolleria[] matriz = new precioMezaPolleria[1];
     private double price = 0;
-    private int cont = 1;
+    private int cont = 0;
     String nameCLient = "";
+    int modify = -1;
+    private int numClientes = 1;
     ArrayList<platoPolleria> platos = new ArrayList<>();
     String[] menu = new String[]{
             "INGRESAR",
@@ -94,12 +97,13 @@ public class methodPolleria {
 
     void search() {
         try {
-            String rpta = JOptionPane.showInputDialog("Ingrese id a buscar:");
+            long rpta = Long.parseLong(JOptionPane.showInputDialog("Ingrese id a buscar:"));
             for (int i = 0; i < cont; i++) {
-                if (Long.parseLong(rpta) == matriz[i].getId()) {
+                if (rpta == matriz[i].getId()) {
                     JOptionPane.showMessageDialog(null, matriz[i].toString());
                 }
             }
+            menu();
         } catch (Exception e) {
             menu();
         }
@@ -111,7 +115,7 @@ public class methodPolleria {
         texto += "-------------------------------------------------------------------------------------------------\n";
         JTextArea m1 = new JTextArea(20, 50);
         JScrollPane m2 = new JScrollPane(m1);
-        for (int i = 0; i < cont - 1; i++) {
+        for (int i = 0; i < cont; i++) {
             texto += matriz[i].getId() + "\t" + matriz[i].getNombreCliente() + "\t\t" + matriz[i].getPrecio() + "\n";
         }
         m1.append(texto);
@@ -120,14 +124,14 @@ public class methodPolleria {
     }
 
     void enteData() {
-        if ((cont) > matriz.length) aumentar();
-        int contm = cont - 1;
-        precioMezaPolleria precioMeza = new precioMezaPolleria(cont, price, nameCLient, platos);
-        matriz[contm] = precioMeza;
+        if ((cont) > matriz.length - 1) aumentar();
+        precioMezaPolleria precioMeza = new precioMezaPolleria(numClientes, price, nameCLient, platos);
+        matriz[cont] = precioMeza;
         platos = new ArrayList<>();
         price = 0;
         nameCLient = "";
         cont++;
+        numClientes++;
         menu();
     }
 
@@ -148,8 +152,8 @@ public class methodPolleria {
         String name;
         double precio;
         ArrayList<platoPolleria> platoPollo;
-        for (int i = 0; i < cont - 2; i++) {
-            for (int j = i + 1; j < cont - 1; j++) {
+        for (int i = 0; i < cont - 1; i++) {
+            for (int j = i + 1; j < cont; j++) {
                 if (matriz[j].getPrecio() > matriz[i].getPrecio()) {
 
                     id = matriz[i].getId();
@@ -174,22 +178,29 @@ public class methodPolleria {
 
     private void eliminar() {
         try {
-            String rpta = JOptionPane.showInputDialog("Ingrese id a buscar:");
-            int b = 0;
+            precioMezaPolleria[] result = new precioMezaPolleria[matriz.length - 1];
+            long rpta = Long.parseLong(JOptionPane.showInputDialog("Ingrese id a eliminar:"));
+            int b = -1;
             for (int i = 0; i < cont; i++) {
-                if (Long.parseLong(rpta) == matriz[i].getId()) {
+                if (rpta == matriz[i].getId()) {
                     b = i;
-                    break;
-                } else {
-                    JOptionPane.showMessageDialog(null, "No se encontro id");
-                    menu();
                 }
             }
-
-           /* for (int i = b; i < cont--; i++) {
-                matriz[i] = matriz[i + 1];
-            }*/
+            if (b == -1) {
+                JOptionPane.showMessageDialog(null, "No se encontro id");
+                menu();
+            }
+            int j = 0; // Un índice para el nuevo arreglo
+            for (int i = 0; i < matriz.length; i++) {
+                if (matriz[i].getId() != b) { // Si el elemento no es igual al elemento a eliminar
+                    result[j] = matriz[i]; // Copiar el elemento al nuevo arreglo
+                    j++; // Incrementar el índice para el nuevo arreglo
+                }
+            }
+            /*matriz = result;*/
             cont--;
+            JOptionPane.showMessageDialog(null, "se ejecuto correctamente la eliminacion");
+            menu();
         } catch (Exception e) {
             menu();
         }
@@ -198,62 +209,76 @@ public class methodPolleria {
     private void modificar() {
         try {
             String rpta = JOptionPane.showInputDialog("Ingrese id a buscar:");
-            int b = -1;
             for (int i = 0; i < cont; i++) {
                 if (Long.parseLong(rpta) == matriz[i].getId()) {
-                    b = i;
+                    modify = i;
                     break;
                 }
             }
-            if (b == -1) {
+            if (modify == -1) {
                 JOptionPane.showMessageDialog(null, "el id no existe");
                 menu();
             }
-            String name = JOptionPane.showInputDialog(null, "Ingrese nuevo nombre");
-            String rptas;
-            double precio = 0;
-            platoPolleria polleria;
-            do {
-                rptas = (String) JOptionPane.showInputDialog(null,
-                        "ingrese platos:",
-                        "POLLERIA D' ANTHONY",
-                        JOptionPane.PLAIN_MESSAGE,
-                        null,
-                        menu2,
-                        menu2[0]);
-                if (rptas.equals(menu2[0])) {
-                    precio += 15;
-                    polleria = new platoPolleria(rptas, precio, 1);
-                    platos.add(polleria);
-                } else if (rptas.equals(menu2[1])) {
-                    precio += 30;
-                    polleria = new platoPolleria(rptas, precio, 1);
-                    platos.add(polleria);
-                } else if (rptas.equals(menu2[2])) {
-                    precio += 60;
-                    polleria = new platoPolleria(rptas, precio, 1);
-                    platos.add(polleria);
-                } else if (rptas.equals(menu2[3])) {
-                    price += 10;
-                    polleria = new platoPolleria(rptas, precio, 1);
-                    platos.add(polleria);
-                }
-            } while (rpta.equals(menu2[4]));
-
-            matriz[b].setPrecio(precio);
-            matriz[b].setNombreCliente(name);
-            matriz[b].setPlato(platos);
-            matriz[b].setId(matriz[b].getId());
-            platos = new ArrayList<>();
-
+            nameCLient = JOptionPane.showInputDialog(null, "Ingrese nuevo nombre");
+            menu3();
         } catch (Exception e) {
             menu();
         }
     }
 
+    private void modify() {
+        matriz[modify].setPrecio(price);
+        matriz[modify].setNombreCliente(nameCLient);
+        matriz[modify].setPlato(platos);
+        matriz[modify].setId(matriz[modify].getId());
+        platos = new ArrayList<>();
+        nameCLient = "";
+        modify = -1;
+        price = 0;
+        menu();
+    }
+
+        void menu3() {
+        String rpta = (String) JOptionPane.showInputDialog(null,
+                "ingrese platos:",
+                "POLLERIA D' ANTHONY",
+                JOptionPane.PLAIN_MESSAGE,
+                null,
+                menu2,
+                menu2[0]);
+        optionModificar(rpta);
+    }
+
+    private void optionModificar(String rpta) {
+        platoPolleria polleria;
+        if (rpta.equals(menu2[0])) {
+            price += 15;
+            polleria = new platoPolleria(menu2[0], price, 1);
+            platos.add(polleria);
+        } else if (rpta.equals(menu2[1])) {
+            price += 30;
+            polleria = new platoPolleria(menu2[1], price, 1);
+            platos.add(polleria);
+        } else if (rpta.equals(menu2[2])) {
+            price += 60;
+            polleria = new platoPolleria(menu2[2], price, 1);
+            platos.add(polleria);
+        } else if (rpta.equals(menu2[3])) {
+            price += 10;
+            polleria = new platoPolleria(menu2[3], price, 1);
+            platos.add(polleria);
+        } else if (rpta.equals(menu2[4])) {
+            modify();
+        } else {
+            nameCLient = "";
+            menu();
+        }
+        menu3();
+    }
+
     private void aumentar() {
         precioMezaPolleria[] aumento = new precioMezaPolleria[cont + 1];
-        for (int i = 0; i < cont - 1; i++) {
+        for (int i = 0; i < aumento.length - 1; i++) {
             aumento[i] = matriz[i];
         }
         matriz = aumento;
