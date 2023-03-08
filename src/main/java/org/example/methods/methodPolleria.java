@@ -4,11 +4,10 @@ import org.example.model.platoPolleria;
 import org.example.model.precioMezaPolleria;
 
 import javax.swing.*;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class methodPolleria {
-    private precioMezaPolleria[] matriz = new precioMezaPolleria[1];
+    private precioMezaPolleria[] matriz = new precioMezaPolleria[2];
     private double price = 0;
     private int cont = 0;
     String nameCLient = "";
@@ -54,7 +53,6 @@ public class methodPolleria {
         options2(rpta);
 
     }
-
 
     void options(String rpta) {
         if (rpta.equals(menu[0])) {
@@ -178,7 +176,7 @@ public class methodPolleria {
 
     private void eliminar() {
         try {
-            precioMezaPolleria[] result = new precioMezaPolleria[matriz.length - 1];
+            precioMezaPolleria[] result = new precioMezaPolleria[matriz.length];
             long rpta = Long.parseLong(JOptionPane.showInputDialog("Ingrese id a eliminar:"));
             int b = -1;
             for (int i = 0; i < cont; i++) {
@@ -190,14 +188,14 @@ public class methodPolleria {
                 JOptionPane.showMessageDialog(null, "No se encontro id");
                 menu();
             }
-            int j = 0; // Un índice para el nuevo arreglo
-            for (int i = 0; i < matriz.length; i++) {
-                if (matriz[i].getId() != b) { // Si el elemento no es igual al elemento a eliminar
-                    result[j] = matriz[i]; // Copiar el elemento al nuevo arreglo
-                    j++; // Incrementar el índice para el nuevo arreglo
+            int j = 0;
+            for (int i = 0; i < cont; i++) {
+                if (matriz[i].getId() != b) {
+                    result[j] = matriz[i];
+                    j++;
                 }
             }
-            /*matriz = result;*/
+            matriz = result;
             cont--;
             JOptionPane.showMessageDialog(null, "se ejecuto correctamente la eliminacion");
             menu();
@@ -238,7 +236,7 @@ public class methodPolleria {
         menu();
     }
 
-        void menu3() {
+    private void menu3() {
         String rpta = (String) JOptionPane.showInputDialog(null,
                 "ingrese platos:",
                 "POLLERIA D' ANTHONY",
@@ -277,7 +275,7 @@ public class methodPolleria {
     }
 
     private void aumentar() {
-        precioMezaPolleria[] aumento = new precioMezaPolleria[cont + 1];
+        precioMezaPolleria[] aumento = new precioMezaPolleria[cont + 5];
         for (int i = 0; i < aumento.length - 1; i++) {
             aumento[i] = matriz[i];
         }
