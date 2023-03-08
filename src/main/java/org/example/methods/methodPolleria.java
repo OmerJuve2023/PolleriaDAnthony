@@ -7,7 +7,7 @@ import javax.swing.*;
 import java.util.ArrayList;
 
 public class methodPolleria {
-    private precioMezaPolleria[] matriz = new precioMezaPolleria[10000];
+    private precioMezaPolleria[] matriz = new precioMezaPolleria[1];
     private double price = 0;
     private int cont = 1;
     String nameCLient = "";
@@ -16,6 +16,8 @@ public class methodPolleria {
             "INGRESAR",
             "MOSTRAR",
             "BUSCAR",
+            "MODIFICAR",
+            "ELIMINAR",
             "SALIR"
     };
     String[] menu2 = new String[]{
@@ -50,16 +52,17 @@ public class methodPolleria {
 
     }
 
+
     void options(String rpta) {
         if (rpta.equals(menu[0])) {
             nameCLient = JOptionPane.showInputDialog(null, "Ingrese Nombre del Cliente");
             menu2();
         }
         if (rpta.equals(menu[1])) view();
-
         if (rpta.equals(menu[2])) search();
-
-        if (rpta.equals(menu[3])) exit();
+        if (rpta.equals(menu[3])) modificar();
+        if (rpta.equals(menu[4])) eliminar();
+        if (rpta.equals(menu[5])) exit();
 
     }
 
@@ -117,6 +120,7 @@ public class methodPolleria {
     }
 
     void enteData() {
+        if ((cont) > matriz.length) aumentar();
         int contm = cont - 1;
         precioMezaPolleria precioMeza = new precioMezaPolleria(cont, price, nameCLient, platos);
         matriz[contm] = precioMeza;
@@ -168,5 +172,89 @@ public class methodPolleria {
         }
     }
 
+    private void eliminar() {
+        try {
+            String rpta = JOptionPane.showInputDialog("Ingrese id a buscar:");
+            int b = 0;
+            for (int i = 0; i < cont; i++) {
+                if (Long.parseLong(rpta) == matriz[i].getId()) {
+                    b = i;
+                    break;
+                } else {
+                    JOptionPane.showMessageDialog(null, "No se encontro id");
+                    menu();
+                }
+            }
+            for (int i = b; i < cont--; i++) {
+                matriz[i] = matriz[i + 1];
+            }
+            cont--;
+        } catch (Exception e) {
+            menu();
+        }
+    }
 
+    private void modificar() {
+        try {
+            String rpta = JOptionPane.showInputDialog("Ingrese id a buscar:");
+            int b = -1;
+            for (int i = 0; i < cont; i++) {
+                if (Long.parseLong(rpta) == matriz[i].getId()) {
+                    b = i;
+                    break;
+                }
+            }
+            if (b == -1) {
+                JOptionPane.showMessageDialog(null, "el id no existe");
+                menu();
+            }
+            String name = JOptionPane.showInputDialog(null, "Ingrese nuevo nombre");
+            String rptas;
+            double precio = 0;
+            platoPolleria polleria;
+            do {
+                rptas = (String) JOptionPane.showInputDialog(null,
+                        "ingrese platos:",
+                        "POLLERIA D' ANTHONY",
+                        JOptionPane.PLAIN_MESSAGE,
+                        null,
+                        menu2,
+                        menu2[0]);
+                if (rptas.equals(menu2[0])) {
+                    precio += 15;
+                    polleria = new platoPolleria(rptas, precio, 1);
+                    platos.add(polleria);
+                } else if (rptas.equals(menu2[1])) {
+                    precio += 30;
+                    polleria = new platoPolleria(rptas, precio, 1);
+                    platos.add(polleria);
+                } else if (rptas.equals(menu2[2])) {
+                    precio += 60;
+                    polleria = new platoPolleria(rptas, precio, 1);
+                    platos.add(polleria);
+                } else if (rptas.equals(menu2[3])) {
+                    price += 10;
+                    polleria = new platoPolleria(rptas, precio, 1);
+                    platos.add(polleria);
+                }
+            } while (rpta.equals(menu2[4]));
+
+            matriz[b].setPrecio(precio);
+            matriz[b].setNombreCliente(name);
+            matriz[b].setPlato(platos);
+            matriz[b].setId(matriz[b].getId());
+            platos = new ArrayList<>();
+
+        } catch (Exception e) {
+            menu();
+        }
+    }
+
+    private void aumentar() {
+        precioMezaPolleria[] aumento = new precioMezaPolleria[cont + 1];
+        for (int i = 0; i < cont - 1; i++) {
+            aumento[i] = matriz[i];
+        }
+        matriz = aumento;
+    }
 }
