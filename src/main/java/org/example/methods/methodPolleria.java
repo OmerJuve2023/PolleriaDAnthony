@@ -10,8 +10,8 @@ public class methodPolleria {
     private precioMezaPolleria[] matriz = new precioMezaPolleria[2];
     private double price = 0;
     private int cont = 0;
-    String nameCLient = "";
-    int modify = -1;
+    private String nameCLient = "";
+    private int modify = -1;
     private int numClientes = 1;
     ArrayList<platoPolleria> platos = new ArrayList<>();
     String[] menu = new String[]{
@@ -22,10 +22,11 @@ public class methodPolleria {
             "ELIMINAR",
             "SALIR"
     };
+
     String[] menu2 = new String[]{
-            "1/4 Pollo, porcion de papas y ensalada --- S/.15.00",
-            "1/2 Pollo, porcion de papas y ensalada --- S/.30.00",
-            "1 Pollo, porcion de papas y ensalada --- S/.60.00",
+            "1/4 Pollo, porción de papas y ensalada --- S/.15.00",
+            "1/2 Pollo, porción de papas y ensalada --- S/.30.00",
+            "1 Pollo, porción de papas y ensalada --- S/.60.00",
             "Gaseosa InKa Kola 3L --- S/.10.00",
             "Terminar Pedido",
             "SALIR"
@@ -150,10 +151,10 @@ public class methodPolleria {
         String name;
         double precio;
         ArrayList<platoPolleria> platoPollo;
+
         for (int i = 0; i < cont - 1; i++) {
             for (int j = i + 1; j < cont; j++) {
                 if (matriz[j].getPrecio() > matriz[i].getPrecio()) {
-
                     id = matriz[i].getId();
                     matriz[i].setId(matriz[j].getId());
                     matriz[j].setId(id);
@@ -169,6 +170,9 @@ public class methodPolleria {
                     platoPollo = (ArrayList<platoPolleria>) matriz[i].getPlato();
                     matriz[i].setPlato(matriz[j].getPlato());
                     matriz[j].setPlato(platoPollo);
+                    /*precioMezaPolleria precioMezaPolleria = matriz[i];
+                    matriz[i] = matriz[j];
+                    matriz[j] = precioMezaPolleria;*/
                 }
             }
         }
@@ -179,27 +183,26 @@ public class methodPolleria {
             precioMezaPolleria[] result = new precioMezaPolleria[matriz.length];
             long rpta = Long.parseLong(JOptionPane.showInputDialog("Ingrese id a eliminar:"));
             System.out.println(rpta);
-            int b = -1;
+            int espacio = -1;
             for (int i = 0; i < cont; i++) {
                 if (rpta == matriz[i].getId()) {
-                    b = i;
-                    System.out.println(b);
+                    espacio = i;
                 }
             }
-            if (b == -1) {
-                JOptionPane.showMessageDialog(null, "No se encontro id");
+            if (espacio == -1) {
+                JOptionPane.showMessageDialog(null, "No se encontró id");
                 menu();
             }
             int j = 0;
             for (int i = 0; i < cont; i++) {
-                if (matriz[i].getId() != b) {
+                if (matriz[i].getId() != espacio) {
                     result[j] = matriz[i];
                     j++;
                 }
             }
             /*matriz = result;*/
             cont--;
-            JOptionPane.showMessageDialog(null, "se ejecuto correctamente la eliminacion");
+            JOptionPane.showMessageDialog(null, "se ejecuto correctamente la eliminación");
             menu();
         } catch (Exception e) {
             menu();
@@ -275,7 +278,6 @@ public class methodPolleria {
         }
         menu3();
     }
-
     private void aumentar() {
         precioMezaPolleria[] aumento = new precioMezaPolleria[cont + 5];
         for (int i = 0; i < cont; i++) {
