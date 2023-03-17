@@ -178,6 +178,7 @@ public class methodPolleria {
         try {
             precioMezaPolleria[] result = new precioMezaPolleria[matriz.length];
             long rpta = Long.parseLong(JOptionPane.showInputDialog("Ingrese id a eliminar:"));
+            System.out.println(rpta);
             int b = -1;
             for (int i = 0; i < cont; i++) {
                 if (rpta == matriz[i].getId()) {
@@ -276,7 +277,7 @@ public class methodPolleria {
 
     private void aumentar() {
         precioMezaPolleria[] aumento = new precioMezaPolleria[cont + 5];
-        for (int i = 0; i < aumento.length - 1; i++) {
+        for (int i = 0; i < cont; i++) {
             aumento[i] = matriz[i];
         }
         matriz = aumento;
