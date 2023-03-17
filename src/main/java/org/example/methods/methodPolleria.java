@@ -108,7 +108,7 @@ public class methodPolleria {
     }
 
     void view() {
-        if (cont > 2) ordenar();
+        /*if (cont > 2) ordenar();*/
         String texto = "ID" + "\t" + "NOMBRE CLIENTE" + "\t" + "MONTO" + "\n";
         texto += "-------------------------------------------------------------------------------------------------\n";
         JTextArea m1 = new JTextArea(20, 50);
@@ -183,6 +183,7 @@ public class methodPolleria {
             for (int i = 0; i < cont; i++) {
                 if (rpta == matriz[i].getId()) {
                     b = i;
+                    System.out.println(b);
                 }
             }
             if (b == -1) {
@@ -196,7 +197,7 @@ public class methodPolleria {
                     j++;
                 }
             }
-            matriz = result;
+            /*matriz = result;*/
             cont--;
             JOptionPane.showMessageDialog(null, "se ejecuto correctamente la eliminacion");
             menu();
