@@ -5,7 +5,6 @@ public class platoPolleria {
     private double precio;
     private int cantidad;
 
-
     public platoPolleria(String plato, double precio, int cantidad) {
         this.plato = plato;
         this.precio = precio;
