@@ -15,7 +15,7 @@ public class guiPolleria extends JFrame implements ActionListener, WindowListene
     public guiPolleria() throws HeadlessException {
         JFrame ventana = new JFrame("Polleria D'Anthony");
         ventana.setVisible(true);
-        ventana.setSize(1010, 450);
+        ventana.setSize(1010, 470);
         ventana.setLocationRelativeTo(null);
         ventana.setResizable(false);
         this.addWindowListener(this);
@@ -96,9 +96,9 @@ public class guiPolleria extends JFrame implements ActionListener, WindowListene
 
     private void optionButtons() {
         JButton bEditar = new JButton();
-        bEditar.setText("Editar Pedido");
+        bEditar.setText("Modificar Pedido");
         bEditar.setFont(new java.awt.Font("Comic Sans MS", Font.BOLD, 14));
-        bEditar.setSize(135, 30);
+        bEditar.setSize(150, 30);
         bEditar.setLocation(550, 20);
         panelContenedor.add(bEditar);
 
@@ -106,14 +106,14 @@ public class guiPolleria extends JFrame implements ActionListener, WindowListene
         bEliminar.setText("Eliminar Pedido");
         bEliminar.setFont(new java.awt.Font("Comic Sans MS", Font.BOLD, 14));
         bEliminar.setSize(140, 30);
-        bEliminar.setLocation(700, 20);
+        bEliminar.setLocation(710, 20);
         panelContenedor.add(bEliminar);
 
         JButton bBuscar = new JButton();
         bBuscar.setText("Buscar Pedido");
         bBuscar.setFont(new java.awt.Font("Comic Sans MS", Font.BOLD, 14));
         bBuscar.setSize(130, 30);
-        bBuscar.setLocation(850, 20);
+        bBuscar.setLocation(860, 20);
         panelContenedor.add(bBuscar);
     }
 
