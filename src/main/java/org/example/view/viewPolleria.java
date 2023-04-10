@@ -24,10 +24,10 @@ public class viewPolleria extends controller {
     };
 
     String[] menu2 = new String[]{
-            "1/4 Pollo, porción de papas y ensalada --- S/.15.00",
-            "1/2 Pollo, porción de papas y ensalada --- S/.30.00",
-            "1 Pollo, porción de papas y ensalada --- S/.60.00",
-            "Gaseosa InKa Kola 3L --- S/.10.00",
+            "1/4 Pollo, porción de papas y ensalada",
+            "1/2 Pollo, porción de papas y ensalada",
+            "1 Pollo, porción de papas y ensalada",
+            "Gaseosa InKa Kola 3L",
             "Terminar Pedido",
             "SALIR"
     };
@@ -92,6 +92,8 @@ public class viewPolleria extends controller {
             for (int i = 0; i < cont; i++) {
                 if (rpta == matriz[i].getId()) {
                     JOptionPane.showMessageDialog(null, matriz[i].toString());
+                    System.out.println(matriz[i].toString());
+                    break;
                 }
             }
             menu();
