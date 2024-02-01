@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ## POLLERIA D ANTHONY
 
 Este proyecto Java representa un sistema simple de pedidos para una pollería llamada "Polleria D'Anthony". El sistema
@@ -80,3 +81,6 @@ Si deseas contribuir o realizar mejoras, realiza un fork del repositorio y enví
 issues para informar sobre errores o sugerir nuevas funcionalidades.
 
 ¡Explora y disfruta de la experiencia de la Pollería D'Anthony!
+=======
+
+>>>>>>> master
