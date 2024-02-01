@@ -31,7 +31,7 @@ public class precioMezaPolleria {
         for (platoPolleria plato : plato) {
             txt += "Nombre:\t" + plato.getPlato() + "\n" +
                     "Cantidad de Platos:\t" + plato.getCantidad() + "\n" +
-                    "Precio del Plato:\t" + plato.getPrecio();
+                    "Precio del Plato:\t" + plato.getPrecio() + "\n";
         }
         return "Precio Meza Polleria" +
                 "id:\t" + id + "\n" +

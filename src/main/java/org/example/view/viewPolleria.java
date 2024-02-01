@@ -1,14 +1,14 @@
-package org.example.methods;
+package org.example.view;
 
+import org.example.controler.controller;
 import org.example.model.platoPolleria;
 import org.example.model.precioMezaPolleria;
 
 import javax.swing.*;
 import java.util.ArrayList;
 
-public class methodPolleria {
-    private precioMezaPolleria[] matriz = new precioMezaPolleria[2];
-    private double price = 0;
+public class viewPolleria extends controller {
+    private precioMezaPolleria[] matriz = new precioMezaPolleria[1];
     private int cont = 0;
     private String nameCLient = "";
     private int modify = -1;
@@ -24,13 +24,14 @@ public class methodPolleria {
     };
 
     String[] menu2 = new String[]{
-            "1/4 Pollo, porción de papas y ensalada --- S/.15.00",
-            "1/2 Pollo, porción de papas y ensalada --- S/.30.00",
-            "1 Pollo, porción de papas y ensalada --- S/.60.00",
-            "Gaseosa InKa Kola 3L --- S/.10.00",
+            "1/4 Pollo, porción de papas y ensalada",
+            "1/2 Pollo, porción de papas y ensalada",
+            "1 Pollo, porción de papas y ensalada",
+            "Gaseosa InKa Kola 3L",
             "Terminar Pedido",
             "SALIR"
     };
+
 
     public void menu() {
         String rpta = (String) JOptionPane.showInputDialog(null,
@@ -69,23 +70,14 @@ public class methodPolleria {
     }
 
     void options2(String rpta) {
-        platoPolleria polleria;
         if (rpta.equals(menu2[0])) {
-            price += 15;
-            polleria = new platoPolleria(menu2[0], price, 1);
-            platos.add(polleria);
+            platos.add(ingresarPlatos(menu2[0], 15));
         } else if (rpta.equals(menu2[1])) {
-            price += 30;
-            polleria = new platoPolleria(menu2[1], price, 1);
-            platos.add(polleria);
+            platos.add(ingresarPlatos(menu2[1], 30));
         } else if (rpta.equals(menu2[2])) {
-            price += 60;
-            polleria = new platoPolleria(menu2[2], price, 1);
-            platos.add(polleria);
+            platos.add(ingresarPlatos(menu2[2], 60));
         } else if (rpta.equals(menu2[3])) {
-            price += 10;
-            polleria = new platoPolleria(menu2[3], price, 1);
-            platos.add(polleria);
+            platos.add(ingresarPlatos(menu2[3], 10));
         } else if (rpta.equals(menu2[4])) {
             enteData();
         } else {
@@ -100,6 +92,8 @@ public class methodPolleria {
             for (int i = 0; i < cont; i++) {
                 if (rpta == matriz[i].getId()) {
                     JOptionPane.showMessageDialog(null, matriz[i].toString());
+                    System.out.println(matriz[i].toString());
+                    break;
                 }
             }
             menu();
@@ -124,10 +118,8 @@ public class methodPolleria {
 
     void enteData() {
         if ((cont) > matriz.length - 1) aumentar();
-        precioMezaPolleria precioMeza = new precioMezaPolleria(numClientes, price, nameCLient, platos);
-        matriz[cont] = precioMeza;
+        matriz[cont] = ingresarMeza(numClientes, totalPrecioMeza(platos), nameCLient, platos);
         platos = new ArrayList<>();
-        price = 0;
         nameCLient = "";
         cont++;
         numClientes++;
@@ -135,10 +127,7 @@ public class methodPolleria {
     }
 
     void exit() {
-        int aux = JOptionPane.showConfirmDialog(null,
-                "ESTA SEGURO QUE DESEA SALIR",
-                "",
-                JOptionPane.YES_NO_OPTION);
+        int aux = salir();
         if (aux == 0) {
             System.exit(0);
         } else {
@@ -147,32 +136,13 @@ public class methodPolleria {
     }
 
     private void ordenar() {
-        long id;
-        String name;
-        double precio;
-        ArrayList<platoPolleria> platoPollo;
 
         for (int i = 0; i < cont - 1; i++) {
             for (int j = i + 1; j < cont; j++) {
                 if (matriz[j].getPrecio() > matriz[i].getPrecio()) {
-                    id = matriz[i].getId();
-                    matriz[i].setId(matriz[j].getId());
-                    matriz[j].setId(id);
-
-                    name = matriz[i].getNombreCliente();
-                    matriz[i].setNombreCliente(matriz[j].getNombreCliente());
-                    matriz[j].setNombreCliente(name);
-
-                    precio = matriz[i].getPrecio();
-                    matriz[i].setPrecio(matriz[j].getPrecio());
-                    matriz[j].setPrecio(precio);
-
-                    platoPollo = (ArrayList<platoPolleria>) matriz[i].getPlato();
-                    matriz[i].setPlato(matriz[j].getPlato());
-                    matriz[j].setPlato(platoPollo);
-                    /*precioMezaPolleria precioMezaPolleria = matriz[i];
+                    precioMezaPolleria precioMezaPolleria = matriz[i];
                     matriz[i] = matriz[j];
-                    matriz[j] = precioMezaPolleria;*/
+                    matriz[j] = precioMezaPolleria;
                 }
             }
         }
@@ -200,7 +170,6 @@ public class methodPolleria {
                     j++;
                 }
             }
-            /*matriz = result;*/
             cont--;
             JOptionPane.showMessageDialog(null, "se ejecuto correctamente la eliminación");
             menu();
@@ -230,14 +199,13 @@ public class methodPolleria {
     }
 
     private void modify() {
-        matriz[modify].setPrecio(price);
+        matriz[modify].setPrecio(totalPrecioMeza(platos));
         matriz[modify].setNombreCliente(nameCLient);
         matriz[modify].setPlato(platos);
         matriz[modify].setId(matriz[modify].getId());
         platos = new ArrayList<>();
         nameCLient = "";
         modify = -1;
-        price = 0;
         menu();
     }
 
@@ -253,23 +221,14 @@ public class methodPolleria {
     }
 
     private void optionModificar(String rpta) {
-        platoPolleria polleria;
         if (rpta.equals(menu2[0])) {
-            price += 15;
-            polleria = new platoPolleria(menu2[0], price, 1);
-            platos.add(polleria);
+            platos.add(ingresarPlatos(menu2[0], 15));
         } else if (rpta.equals(menu2[1])) {
-            price += 30;
-            polleria = new platoPolleria(menu2[1], price, 1);
-            platos.add(polleria);
+            platos.add(ingresarPlatos(menu2[1], 30));
         } else if (rpta.equals(menu2[2])) {
-            price += 60;
-            polleria = new platoPolleria(menu2[2], price, 1);
-            platos.add(polleria);
+            platos.add(ingresarPlatos(menu2[2], 60));
         } else if (rpta.equals(menu2[3])) {
-            price += 10;
-            polleria = new platoPolleria(menu2[3], price, 1);
-            platos.add(polleria);
+            platos.add(ingresarPlatos(menu2[3], 10));
         } else if (rpta.equals(menu2[4])) {
             modify();
         } else {
@@ -278,11 +237,8 @@ public class methodPolleria {
         }
         menu3();
     }
+
     private void aumentar() {
-        precioMezaPolleria[] aumento = new precioMezaPolleria[cont + 5];
-        for (int i = 0; i < cont; i++) {
-            aumento[i] = matriz[i];
-        }
-        matriz = aumento;
+        matriz = aumentar(matriz, cont);
     }
 }

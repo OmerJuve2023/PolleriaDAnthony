@@ -1,10 +1,10 @@
 package org.example;
 
-import org.example.methods.methodPolleria;
+import org.example.view.viewPolleria;
 
 public class Main {
     public static void main(String[] args) {
-        methodPolleria polleria = new methodPolleria();
+        viewPolleria polleria = new viewPolleria();
         polleria.menu();
     }
 }
