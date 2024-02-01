@@ -1,5 +1,4 @@
-<<<<<<< HEAD
-## POLLERIA D ANTHONY
+# POLLERIA D ANTHONY
 
 Este proyecto Java representa un sistema simple de pedidos para una pollería llamada "Polleria D'Anthony". El sistema
 permite **ingresar**, **mostrar**, **buscar**, **modificar** y **eliminar** pedidos de clientes.
